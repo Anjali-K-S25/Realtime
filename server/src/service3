@@ -1,0 +1,33 @@
+import axios from 'axios';
+
+const API = axios.create({
+  baseURL: 'http://localhost:5000/api',
+});
+
+// Get all active documents for a user
+export const getDocs = async (userId) =>
+  (await API.get(`/docs/user/${userId}`)).data;
+
+// Get archived documents
+export const getArchivedDocs = async (userId) =>
+  (await API.get(`/docs/archived/${userId}`)).data;
+
+// Get deleted documents
+export const getDeletedDocs = async (userId) =>
+  (await API.get(`/docs/deleted/${userId}`)).data;
+
+// Create a new document
+export const createDoc = async (docData) =>
+  (await API.post('/docs', docData)).data;
+
+// Update a document
+export const updateDoc = async (docId, docData) =>
+  (await API.put(`/docs/${docId}`, docData)).data;
+
+// Soft delete a document
+export const deleteDoc = async (docId) =>
+  (await API.delete(`/docs/${docId}`)).data;
+
+// Archive a document
+export const archiveDoc = async (docId) =>
+  (await API.put(`/docs/archive/${docId}`)).data;
